@@ -26,6 +26,11 @@ class TCPClientTest {
             Scanner sc = new Scanner(System.in);
             String line = null;
   
+
+            out.println("1");
+            out.flush();
+
+
             while (!"exit".equalsIgnoreCase(line)) {
                 
                 // reading from user
