@@ -4,7 +4,7 @@ import java.net.*;
 import java.util.*;
   
 // Client class
-class TCPClientTest {
+class TCPServerTest {
     
     // driver code
     public static void main(String[] args)
@@ -33,15 +33,34 @@ class TCPClientTest {
   
 
             // call register file services
-            out.println("3");
+            out.println("1");
 
-            int numOfFile = Integer.parseInt(in.readLine());
+            int numOfFile = 3;
+            // num of files
+            out.println(""+numOfFile);
 
+            // file names
             for (int i = 0; i < numOfFile; i++) {
-                System.out.println("filename: " + in.readLine());
-                System.out.println("server ip: " + in.readLine());
-                System.out.println("server port: " + in.readLine());
+                out.println("myFileName"+i);
             }
+
+            // call remove file services dowwn
+            // out.println("2");
+
+
+
+            // System.out.println("Server replied "
+            // + in.readLine());
+            // System.out.println("Server replied "
+            // + in.readLine());
+            // System.out.println("Server replied "
+            // + in.readLine());
+            // System.out.println("Server replied "
+            // + in.readLine());
+            // System.out.println("Server replied "
+            // + in.readLine());
+            // System.out.println("Server replied "
+            // + in.readLine());
 
             line = null;
             
@@ -65,10 +84,14 @@ class TCPClientTest {
             sc.close();
         }
         catch (IOException e) {
+            out.println("2");
+
             e.printStackTrace();
         }
         finally{
             try {
+                out.println("2");
+
                 if (out != null) {
                     out.close();
                 }

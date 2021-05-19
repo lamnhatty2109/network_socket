@@ -103,6 +103,18 @@ public class TCPMasterServer {
                 // out.println(line);
                 // }
 
+
+                // NEED TO REMOVE //////
+                // sample data for client test
+                for (int i = 0; i < 3; i++) {
+                    FileInfo file = new FileInfo();
+                    file.setFilename("abc"+i);
+                    file.setInfo(clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort());
+
+                    listFileInfo.add(file);
+                }
+                //////////////////////
+
                 int numOfFile = 0;
 
                 String status;
@@ -137,7 +149,7 @@ public class TCPMasterServer {
                             break;
 
                         case "3":
-                            out.println("master server received services 2");
+                            // out.println("master server received services 2");
                             System.out.println("master server received services 2");
                             // send the size of ArrayList for Client to Read
                             out.println(listFileInfo.size());
