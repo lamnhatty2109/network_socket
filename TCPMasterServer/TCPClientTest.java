@@ -65,20 +65,20 @@ class TCPClientTest {
             line = null;
             
 
-            // while (!"exit".equalsIgnoreCase(line)) {
+            while (!"exit".equalsIgnoreCase(line)) {
                 
-            //     // reading from user
-            //     line = sc.nextLine();
+                // reading from user
+                line = sc.nextLine();
 
   
-            //     // sending the user input to server
-            //     out.println(line);
-            //     out.flush();
+                // sending the user input to server
+                out.println(line);
+                out.flush();
   
-            //     // displaying server reply
-            //     System.out.println("Server replied "
-            //                        + in.readLine());
-            // }
+                // displaying server reply
+                System.out.println("Server replied "
+                                   + in.readLine());
+            }
             
             // closing the scanner object
             sc.close();
