@@ -40,7 +40,7 @@ public class TCPMasterServer {
 
                 // Displaying that new client is connected
                 // to server
-                System.out.println("New client connected" + client.getInetAddress().getHostAddress());
+                System.out.println("=================\nNew client connected " + client.getInetAddress().getHostAddress());
 
                 // create a new thread object
                 ClientHandler clientSock = new ClientHandler(client);
@@ -72,6 +72,20 @@ public class TCPMasterServer {
         listFileInfo.remove(file);
     }
 
+    
+    public static void storageInfo(String filesName, String connectionInfo) {
+        String storageFileName = String.join("_", connectionInfo.split(":"));
+        try {
+            FileWriter myWriter = new FileWriter("TCPMasterServer/" + storageFileName + ".txt");
+            myWriter.write(filesName);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
     // ClientHandler class
     private static class ClientHandler implements Runnable {
         private final Socket clientSocket;
@@ -82,6 +96,32 @@ public class TCPMasterServer {
         }
 
         public void run() {
+            String filesName = "";
+            String fileServerConnectionInfomation = "";
+
+            try {
+                System.out.println("Getting info from FileServer...");
+                InputStream inputFromFileServer = clientSocket.getInputStream();
+                DataInputStream dataInputStreamFromFileServer = new DataInputStream(inputFromFileServer);
+                filesName = dataInputStreamFromFileServer.readUTF();
+                System.out.println("- List of files name:\n" + filesName);
+                DataInputStream fileServerConnectionInfo = new DataInputStream(inputFromFileServer);
+                fileServerConnectionInfomation = fileServerConnectionInfo.readUTF();
+                System.out.println("- Host:Port - " + fileServerConnectionInfomation);
+                storageInfo(filesName, fileServerConnectionInfomation);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } finally {
+                System.out.println("Closed connection!\n=================");
+                try {
+                    clientSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // tam thoi em stop o day:
+            /*
             PrintWriter out = null;
             BufferedReader in = null;
             try {
@@ -191,6 +231,8 @@ public class TCPMasterServer {
                     e.printStackTrace();
                 }
             }
+
+            */
         }
     }
 }

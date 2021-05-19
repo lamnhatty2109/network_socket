@@ -68,6 +68,14 @@ public class FileInfo {
         this.status = status;
     }
 
+    public byte[] getDataBytes() {
+        return dataBytes;
+    }
+
+    public void setDataBytes(byte[] dataBytes) {
+        this.dataBytes = dataBytes;
+    }
+    
     public FileInfo() {
     }
 
@@ -78,4 +86,6 @@ public class FileInfo {
     private int piecesOfFile;
     private int lastByteLength;
     private String status;
+    private byte[] dataBytes;
+
 }
