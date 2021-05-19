@@ -86,6 +86,13 @@ public class FileInfo implements Serializable{
         port = p;
     }
 
+    public String getHost(){
+        return host;
+    }
+    public int getPort(){
+        return port;
+    }
+
     public FileInfo() {
     }
 

@@ -1,4 +1,3 @@
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -93,6 +92,16 @@ public class TCPMasterServer {
         }
     }
 
+    public static void removeFileByServer(String host, int port) {
+        FileInfo file = null;
+        for (FileInfo fileInfo : listFileInfo) {
+            if (fileInfo.getHost().equals(host) && fileInfo.getPort() == port)
+                file = fileInfo;
+        }
+
+        listFileInfo.remove(file);
+    }
+
     // ClientHandler class
     private static class ClientHandler implements Runnable {
         private final Socket clientSocket;
@@ -124,6 +133,8 @@ public class TCPMasterServer {
                 // out.println(line);
                 // }
 
+                int numOfFile = 0;
+
                 String status;
                 while ((status = in.readLine()) != null) {
                     // -1: null | 1: Server send File | 2: Server is down | 3: Client request file
@@ -131,20 +142,56 @@ public class TCPMasterServer {
                     switch (status) {
                         case "1":
                             out.println("master server received services 1");
+                            System.out.println("master server received services 1");
+                            // receive number of size to initial loop
+                            numOfFile = Integer.parseInt(in.readLine());
+                            System.out.println("master server received files: " + numOfFile);
+                            // cache every file to List
+                            for (int i = 0; i < numOfFile; i++) {
+                                FileInfo file = new FileInfo();
+                                file.setFilename(in.readLine());
+                                file.setInfo(clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort());
+
+                                listFileInfo.add(file);
+                            }
                             break;
 
                         case "2":
                             out.println("master server received server down");
+                            System.out.println("master server received server down");
+                            System.out.println("master server remove files: " + numOfFile);
+                            // find file by name and current client ip
+                            for (int i = 0; i < numOfFile; i++) {
+                                removeFileByServer(clientSocket.getInetAddress().getHostAddress(),clientSocket.getPort());
+                            }
                             break;
 
                         case "3":
                             out.println("master server received services 2");
+                            System.out.println("master server received services 2");
+                            // send the size of ArrayList for Client to Read
+                            out.println(listFileInfo.size());
+                            // then send file by file
+                            for (int i = 0; i < listFileInfo.size(); i++) {
+                                out.println(listFileInfo.get(i).getFilename());
+                                out.println(listFileInfo.get(i).getHost());
+                                out.println(listFileInfo.get(i).getPort());
+                            }
                             break;
 
                         default:
                             out.println("master server received meanless command");
+                            System.out.println("master server received meanless command");
                             break;
                     }
+
+                    // for (FileInfo fileInfo : listFileInfo) {
+                    //     System.out.println(fileInfo.getFilename());
+                    //     System.out.println(fileInfo.getHost());
+                    //     System.out.println(fileInfo.getPort());
+                    // }
+                    System.out.println(listFileInfo.size());
+
                 }
 
             } catch (IOException e) {
