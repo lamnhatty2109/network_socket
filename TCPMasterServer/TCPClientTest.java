@@ -41,6 +41,7 @@ class TCPClientTest {
                 System.out.println("filename: " + in.readLine());
                 System.out.println("server ip: " + in.readLine());
                 System.out.println("server port: " + in.readLine());
+                System.out.println("---------------"+i);
             }
 
             line = null;
