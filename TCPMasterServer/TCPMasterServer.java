@@ -62,36 +62,6 @@ public class TCPMasterServer {
         }
     }
 
-    /**
-     * sleep program in millisecond
-     * 
-     * @param millisecond
-     */
-    public void waitMillisecond(long millisecond) {
-        try {
-            Thread.sleep(millisecond);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Service #1
-    // Server -> MasterServer(this)
-    // Receive request to register a file and its server-ip:port send from a Server
-    public static void fileRegister(FileInfo fileInfo) {
-        listFileInfo.add(fileInfo);
-    }
-
-    // Services #2
-    // MasterServer(this) -> Client
-    // Request by Client to Send to Client a list of every file and its
-    // server-ip:port
-    public static void fileFlush() {
-        for (FileInfo fileInfo : listFileInfo) {
-
-        }
-    }
-
     public static void removeFileByServer(String host, int port) {
         FileInfo file = null;
         for (FileInfo fileInfo : listFileInfo) {
