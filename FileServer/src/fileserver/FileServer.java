@@ -11,10 +11,10 @@ import java.io.*;
 
 public class FileServer {
     private ServerSocket serverSocket;
-    private int port = 9900;
+    private int port = 5560;
     private String host = "localhost";
     private Socket socket;
-    private String listFilesName;
+    private String listFilesName = "";
     
     // Master server info:
     private int MSPort = 7777;
@@ -42,9 +42,9 @@ public class FileServer {
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
         System.out.println("Sending list of filename, IP, Port to the MasterServer");
         dataOutputStream.writeUTF(listFilesName);
-        dataOutputStream.flush();
         dataOutputStream.writeUTF(host+":"+String.valueOf(port));
         dataOutputStream.flush();
+//        dataOutputStream.flush();
         dataOutputStream.close();
         System.out.println("Terminating!");
         socket.close();
