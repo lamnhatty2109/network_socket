@@ -26,7 +26,7 @@ public class TCPClient {
 
     public static void main(String[] args) {
         String sourcePath = "";
-        String destinationDir = "C:\\Users\\DELL\\Desktop\\New folder\\network_socket\\UDPServer\\UDPServer\\server\\";
+        String destinationDir = "C:\\Users\\lamnh\\Desktop\\study\\mmt\\socket\\FileServer\\storage\\";
         TCPClient tcpClient = new TCPClient();
         tcpClient.connectServer();
         tcpClient.sendFile(sourcePath, destinationDir);
@@ -73,7 +73,8 @@ public class TCPClient {
 
         try {
             
-            File fileshow = new File("C:\\Users\\DELL\\Desktop\\New folder\\network_socket\\UDPClient\\client\\");
+
+            File fileshow = new File("D:\\testAPI");
             String[] paths;
             paths = fileshow.list();
             for(String path:paths) {
@@ -100,7 +101,7 @@ public class TCPClient {
                 }
             }
 
-            sourcePath = "C:\\Users\\DELL\\Desktop\\New folder\\network_socket\\UDPClient\\client\\" + temp;
+            sourcePath = fileshow + "\\" + temp;
 
             
             File fileSend = new File(sourcePath);

@@ -72,7 +72,7 @@ public class FileServer  {
             UDPServerSocket.receive(receivePacket);
             InetAddress inetAddress = receivePacket.getAddress();
             ByteArrayInputStream bais = new ByteArrayInputStream(receivePacket.getData());
-            ObjectInputStream ois = new ObjectInputStream(bais);
+            ObjectInputStream ois = new ObjectInputStream(bais);System.out.print("Read file");
             FileInfo fileInfo = (FileInfo) ois.readObject();
             // show file info
             if (fileInfo != null) {

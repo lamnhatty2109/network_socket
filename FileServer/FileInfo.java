@@ -1,6 +1,6 @@
-
 import java.io.Serializable;
-public class FileInfo implements Serializable{
+
+public class FileInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String destinationDirectory;
@@ -11,9 +11,9 @@ public class FileInfo implements Serializable{
     private int lastByteLength;
     private String status;
 
-    private String host;
-    private int port;
-    
+    public FileInfo() {
+    }
+
     public String getDestinationDirectory() {
         return destinationDirectory;
     }
@@ -69,21 +69,4 @@ public class FileInfo implements Serializable{
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public void setInfo(String h, int p){
-        host = h;
-        port = p;
-    }
-
-    public String getHost(){
-        return host;
-    }
-    public int getPort(){
-        return port;
-    }
-
-    public FileInfo() {
-    }
-
 }
-

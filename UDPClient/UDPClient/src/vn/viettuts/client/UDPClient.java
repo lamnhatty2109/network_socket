@@ -28,8 +28,8 @@ public class UDPClient {
      * @param args
      */
     public static void main(String[] args) {
-        String sourcePath = "D:\\client\\test.zip";
-        String destinationDir = "D:\\server\\";
+        String sourcePath = "D:\\testAPI\\PushContRC.txt";
+        String destinationDir = "D:\\";
         UDPClient udpClient = new UDPClient();
         udpClient.connectServer();
         udpClient.sendFile(sourcePath, destinationDir);

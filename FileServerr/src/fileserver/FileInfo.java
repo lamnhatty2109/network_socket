@@ -1,17 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package fileserver;
 
-/**
- *
- * @author lamnh
- */
-public class FileInfo {
+import java.io.Serializable;
+
+public class FileInfo implements Serializable{
     private static final long serialVersionUID = 1L;
 
+    private String destinationDirectory;
+    private String sourceDirectory;
+    private String filename;
+    private long fileSize;
+    private int piecesOfFile;
+    private int lastByteLength;
+    private String status;
+
+    private String host;
+    private int port;
+    
     public String getDestinationDirectory() {
         return destinationDirectory;
     }
@@ -68,24 +71,20 @@ public class FileInfo {
         this.status = status;
     }
 
-    public byte[] getDataBytes() {
-        return dataBytes;
+    public void setInfo(String h, int p){
+        host = h;
+        port = p;
     }
 
-    public void setDataBytes(byte[] dataBytes) {
-        this.dataBytes = dataBytes;
+    public String getHost(){
+        return host;
     }
-    
+    public int getPort(){
+        return port;
+    }
+
     public FileInfo() {
     }
 
-    private String destinationDirectory;
-    private String sourceDirectory;
-    private String filename;
-    private long fileSize;
-    private int piecesOfFile;
-    private int lastByteLength;
-    private String status;
-    private byte[] dataBytes;
-
 }
+

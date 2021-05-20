@@ -1,0 +1,25 @@
+{
+  "siteCode": "CTL",
+  "rcSettings": [
+    {
+      "intfId": 1001,
+      "itemKey": 5001,
+      "itemNo": "DEMOCONT01",
+      "liner": "DEFAULT",
+      "n2": 10,
+      "o2": 10,
+      "cO2": 10,
+      "inertGas": 10,
+      "temperature": 10,
+      "ventilation": 10,
+      "humidity": 10,
+      "dateInput": "2021-01-05T01:00:00",
+      "dateOutput": "2021-01-05T08:00:00",
+      "blockId": "B01",
+      "bay": 1,
+      "row": 1,
+      "tier": 1,
+      "requestMode": "UPDATE_PLUGIN",
+    }
+  ]
+}
