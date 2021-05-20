@@ -16,13 +16,27 @@ public class TCPClient {
     private String host;
     private int port;
     private JTextArea textAreaLog;
-    public static void main(String[] args) {
-        String sourcePath = "D:\\client\\test.zip";
-        String destinationDir = "D:\\server\\";
+
+    public static void main(String[] args) throws Exception {
+        // String sourcePath = "D:\\client\\test.zip";
+        // String destinationDir = "D:\\server\\";
         TCPClient tcpClient = new TCPClient();
         tcpClient.connectServer();
+        tcpClient.requestMasterServer();
         //udpClient.sendFile(sourcePath, destinationDir);
     }
+
+    public void requestMasterServer() throws IOException {
+        try {
+            InputStream inputFromFileServer = client.getInputStream();
+            DataInputStream dataInputStreamFromFileServer = new DataInputStream(inputFromFileServer);
+            filesName = dataInputStreamFromFileServer.readUTF();
+            System.out.println("- List of files name:\n" + filesName);
+        }catch(Exception e) {
+            throw(e);
+        }
+    }
+
     /*public TCPClient(String host, int port, JTextArea textAreaLog) {
         this.host = host;
         this.port = port;

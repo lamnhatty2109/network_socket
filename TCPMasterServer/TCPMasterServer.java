@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.net.*;
 import java.io.*;
 
-public class TCPMasterServer {
+public class TCPMasterServer extends Thread {
     public static int masterServerPort = 7777;
     public static String serverHost = "localhost";
     public static ArrayList<FileInfo> listFileInfo = new ArrayList<FileInfo>();
@@ -93,22 +93,46 @@ public class TCPMasterServer {
         // Constructor
         public ClientHandler(Socket socket) {
             this.clientSocket = socket;
-        }
+        }   
 
         public void run() {
+            String clientType = "";
             String filesName = "";
             String fileServerConnectionInfomation = "";
 
             try {
-                System.out.println("Getting info from FileServer...");
-                InputStream inputFromFileServer = clientSocket.getInputStream();
-                DataInputStream dataInputStreamFromFileServer = new DataInputStream(inputFromFileServer);
-                filesName = dataInputStreamFromFileServer.readUTF();
-                System.out.println("- List of files name:\n" + filesName);
-                DataInputStream fileServerConnectionInfo = new DataInputStream(inputFromFileServer);
-                fileServerConnectionInfomation = fileServerConnectionInfo.readUTF();
-                System.out.println("- Host:Port - " + fileServerConnectionInfomation);
-                storageInfo(filesName, fileServerConnectionInfomation);
+                InputStream type 
+                = clientSocket.getInputStream();
+                DataInputStream clientTypeInput = new DataInputStream(type);
+                clientType = clientTypeInput.readUTF();
+
+                switch (clientType) {
+                    case "0":
+                        System.out.println("Getting info from FileServer...");
+                        InputStream inputFromFileServer = clientSocket.getInputStream();
+                        DataInputStream dataInputStreamFromFileServer = new DataInputStream(inputFromFileServer);
+                        filesName = dataInputStreamFromFileServer.readUTF();
+                        System.out.println("- List of files name:\n" + filesName);
+                        DataInputStream fileServerConnectionInfo = new DataInputStream(inputFromFileServer);
+                        fileServerConnectionInfomation = fileServerConnectionInfo.readUTF();
+                        System.out.println("- Host:Port - " + fileServerConnectionInfomation);
+                        storageInfo(filesName, fileServerConnectionInfomation);
+                        break;
+
+                    case "1":
+                        System.out.println("Sending FileServer info to Client...");
+                        OutputStream outputStream = clientSocket.getOutputStream();
+                        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+                        dataOutputStream.writeUTF("DSFSDFD");
+                        dataOutputStream.flush();
+                        dataOutputStream.close();
+                        
+                        System.out.println("Terminating!");
+                        break;
+
+                    default:
+                }
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             } finally {
